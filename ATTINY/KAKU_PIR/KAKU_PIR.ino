@@ -13,10 +13,10 @@
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-int ID = 1234;         // KAKU address
+#define ID 1234         // KAKU address
 
-const byte txPin = 0;  // 433Mhz TX pin
-const byte inPin = 4;  // PIR sensor pin
+#define txPin 0  // 433Mhz TX pin
+#define inPin 4  // PIR sensor pin
 
 boolean input = false;
 boolean state  = false;
