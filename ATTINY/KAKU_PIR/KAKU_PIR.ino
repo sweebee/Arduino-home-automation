@@ -16,7 +16,7 @@
 #define ID 1234         // KAKU address
 
 #define txPin 0  // 433Mhz TX pin
-#define inPin 4  // PIR sensor pin
+#define sensorPin 4  // PIR sensor pin
 
 boolean input = false;
 boolean state  = false;
@@ -30,8 +30,8 @@ ISR (PCINT0_vect) {
 void setup () { 
   
   pinMode (txPin, OUTPUT);
-  pinMode (inPin, INPUT);
-  digitalWrite (inPin, HIGH);  // internal pull-up
+  pinMode (sensorPin, INPUT);
+  digitalWrite (sensorPin, HIGH);  // internal pull-up
 
   // pin change interrupt
   PCMSK  |= bit (PCINT4);  // want pin D4 / pin 3
@@ -42,7 +42,7 @@ void setup () {
 
 void loop () {
   
-  input = digitalRead(inPin);   // read the input pin
+  input = digitalRead(sensorPin);   // read the input pin
   
   if(input == true && state == false) {
        transmitter.sendUnit(1, true);
