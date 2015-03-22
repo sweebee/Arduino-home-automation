@@ -14,10 +14,10 @@
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-int ID = 12345;            // KAKU address
-const byte txPin = 0;  // 433Mhz Transmitter pin
-const byte sensor1Pin = 3;  // Sensor 1 pin
-const byte sensor2Pin = 4;  // Sensor 2 pin
+#define ID 123456     // KAKU address
+#define txPin 0       // 433Mhz Transmitter pin
+#define sensor1Pin 3  // Sensor 1 pin
+#define sensor2Pin 4  // Sensor 2 pin
 
 boolean sensor1Value = false;
 boolean sensor2Value = false;
@@ -38,8 +38,8 @@ void setup() {
   pinMode (sensor2Pin, INPUT);
   digitalWrite (sensor2Pin, HIGH);  // internal pull-up
   
-  // pin change interrupt (example for D4)
-  PCMSK  |= bit (PCINT3);  // want pin D4 / pin 3
+  // pin change interrupt
+  PCMSK  |= bit (PCINT3);  // want pin D3 / pin 2
   PCMSK  |= bit (PCINT4);  // want pin D4 / pin 3
   GIFR   |= bit (PCIF);    // clear any outstanding interrupts
   GIMSK  |= bit (PCIE);    // enable pin change interrupts 
@@ -49,7 +49,7 @@ void setup() {
 void loop() {
   
   sensor2Value = digitalRead(sensor1Pin);  // Read value of sensor 1
-  sensor1Value = digitalRead(sensor2Pin); // Read value of sensor 2  
+  sensor1Value = digitalRead(sensor2Pin);  // Read value of sensor 2  
   
  
   if(sensor1Value == true && state == false) {
@@ -76,7 +76,7 @@ void loop() {
         
   }
   
-  delay(100); // Wait
+  delay(10); // Wait
   
   goToSleep ();
 }
