@@ -1,4 +1,5 @@
 // KlikAanKlikUit PIR sensor
+// Uses sleep to reduce power consumption
 // Based on AttinyX5
 // Author: Wiebe Nieuwenhuis
 //
@@ -13,13 +14,12 @@
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-#define ID 123456         // KAKU address
-
-#define txPin 0  // 433Mhz TX pin
+#define ID 123456    // KAKU address
+#define txPin 0      // 433Mhz TX pin
 #define sensorPin 4  // PIR sensor pin
 
 boolean input = false;
-boolean state  = false;
+boolean state = false;
 
 NewRemoteTransmitter transmitter(ID, txPin, 260, 3); // Set-up transmitter
 
