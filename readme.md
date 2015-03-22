@@ -10,3 +10,4 @@ Pin 3 and 4 can be used as interrupt when sleeping.
   GND 4|    |5 (0)
        +----+
 ```
+![](http://highlowtech.org/wp-content/uploads/2011/10/ATtiny45-85.png)
