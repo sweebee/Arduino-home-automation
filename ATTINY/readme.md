@@ -2,4 +2,4 @@ ATTINY sketches for sensors on 433Mhz. These sketches use the [NewRemoteSwitch](
 
 ATTINY pin number for arduino:
 
-![](http://highlowtech.org/wp-content/uploads/2011/10/ATtiny45-85.png)
+![](https://github.com/sweebee/Arduino-home-automation/blob/master/attinypins.png)
