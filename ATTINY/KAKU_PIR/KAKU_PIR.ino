@@ -13,7 +13,7 @@
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-#define ID 1234         // KAKU address
+#define ID 123456         // KAKU address
 
 #define txPin 0  // 433Mhz TX pin
 #define sensorPin 4  // PIR sensor pin
