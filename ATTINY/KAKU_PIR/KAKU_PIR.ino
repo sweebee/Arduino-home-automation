@@ -3,7 +3,7 @@
 // Author: Wiebe Nieuwenhuis
 //
 //                    +-\/-+
-//             RESET 1|o   |8 Vcc 2,7 - 5,5V
+//               RST 1|o   |8 Vcc 2,7 - 5,5V
 //               (3) 2|    |7 (2)
 //    PIR SENSOR (4) 3|    |6 (1)
 //               GND 4|    |5 (0) 433Mhz Transmitter
