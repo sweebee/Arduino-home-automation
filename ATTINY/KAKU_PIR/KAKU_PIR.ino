@@ -33,7 +33,7 @@ void setup () {
   pinMode (inPin, INPUT);
   digitalWrite (inPin, HIGH);  // internal pull-up
 
-  // pin change interrupt (example for D4)
+  // pin change interrupt
   PCMSK  |= bit (PCINT4);  // want pin D4 / pin 3
   GIFR   |= bit (PCIF);    // clear any outstanding interrupts
   GIMSK  |= bit (PCIE);    // enable pin change interrupts
