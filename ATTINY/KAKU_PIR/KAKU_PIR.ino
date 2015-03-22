@@ -4,9 +4,9 @@
 //
 //                    +-\/-+
 //             RESET 1|o   |8 Vcc 2,7 - 5,5V
-//               (3) 2|    |7 (2)
+//               (3) 2|    |7 (2) 433Mhz TX
 //    PIR SENSOR (4) 3|    |6 (1)
-//               GND 4|    |5 (0) 433Mhz Transmitter
+//               GND 4|    |5 (0) 
 //                    +----+
 
 #include <avr/sleep.h>
@@ -15,7 +15,7 @@
 
 int ID = 1234;         // KAKU address
 
-const byte txPin = 0;  // 433Mhz TX pin
+const byte txPin = 2;  // 433Mhz TX pin
 const byte inPin = 4;  // PIR sensor pin
 
 boolean input = false;
