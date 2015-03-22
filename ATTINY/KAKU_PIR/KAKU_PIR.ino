@@ -3,20 +3,20 @@
 // Author: Wiebe Nieuwenhuis
 //
 //                    +-\/-+
-//             RESET 1|o   |8 Vcc 2,7 - 5,5V
-//               (3) 2|    |7 (2) 433Mhz TX
+//               RST 1|o   |8 Vcc 2,7 - 5,5V
+//               (3) 2|    |7 (2)
 //    PIR SENSOR (4) 3|    |6 (1)
-//               GND 4|    |5 (0) 
+//               GND 4|    |5 (0) 433Mhz Transmitter
 //                    +----+
 
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-int ID = 1234;         // KAKU address
+#define ID 123456         // KAKU address
 
-const byte txPin = 2;  // 433Mhz TX pin
-const byte inPin = 4;  // PIR sensor pin
+#define txPin 0  // 433Mhz TX pin
+#define sensorPin 4  // PIR sensor pin
 
 boolean input = false;
 boolean state  = false;
@@ -30,10 +30,10 @@ ISR (PCINT0_vect) {
 void setup () { 
   
   pinMode (txPin, OUTPUT);
-  pinMode (inPin, INPUT);
-  digitalWrite (inPin, HIGH);  // internal pull-up
+  pinMode (sensorPin, INPUT);
+  digitalWrite (sensorPin, HIGH);  // internal pull-up
 
-  // pin change interrupt (example for D4)
+  // pin change interrupt
   PCMSK  |= bit (PCINT4);  // want pin D4 / pin 3
   GIFR   |= bit (PCIF);    // clear any outstanding interrupts
   GIMSK  |= bit (PCIE);    // enable pin change interrupts
@@ -42,7 +42,7 @@ void setup () {
 
 void loop () {
   
-  input = digitalRead(inPin);   // read the input pin
+  input = digitalRead(sensorPin);   // read the input pin
   
   if(input == true && state == false) {
        transmitter.sendUnit(1, true);
