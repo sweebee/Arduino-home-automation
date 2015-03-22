@@ -19,6 +19,8 @@ NewRemoteTransmitter transmitter(ID, txPin, 260, 3); // Set-up transmitter
 
 void setup() {
   pinMode(soundPin, INPUT);
+  digitalWrite (soundPin, HIGH);  // internal pull-up
+  pinMode(LED, OUTPUT);
 }
 
 void loop() {
@@ -41,10 +43,12 @@ void loop() {
       if (!lightState) {
           lightState = true;
           digitalWrite(LED, HIGH);
+          transmitter.sendUnit(1, true);
         }
         else if (lightState) {
           lightState = false;
           digitalWrite(LED, LOW);
+          transmitter.sendUnit(1, false);
         }
     }
     claps = 0;
