@@ -2,21 +2,21 @@
 // Based on AttinyX5
 // Author: Wiebe Nieuwenhuis
 //
-//                  +-\/-+
-//                 1|o   |8  Vcc
-//  (4) 433Mhz TX  2|    |7  
-//  (3) PIR sensor 3|    |6  
-//            GND  4|    |5
-//                  +----+
+//                    +-\/-+
+//             RESET 1|o   |8 Vcc 2,7 - 5,5V
+//               (3) 2|    |7 (2)
+//    PIR SENSOR (4) 3|    |6 (1)
+//               GND 4|    |5 (0) 433Mhz Transmitter
+//                    +----+
 
 #include <avr/sleep.h>
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-int ID = 90348;          // KAKU address
+int ID = 1234;         // KAKU address
 
-const byte txPin = 3;  // pin 2   | 433Mhz TX pin
-const byte inPin = 4;  // pin 3   | PIR sensor pin
+const byte txPin = 0;  // 433Mhz TX pin
+const byte inPin = 4;  // PIR sensor pin
 
 boolean input = false;
 boolean state  = false;
@@ -24,7 +24,7 @@ boolean state  = false;
 NewRemoteTransmitter transmitter(ID, txPin, 260, 3); // Set-up transmitter
 
 ISR (PCINT0_vect) {
-  // do something interesting here
+  
 }
 
 void setup () { 
