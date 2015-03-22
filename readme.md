@@ -1,1 +1,1 @@
-Arduino sketches for sensors on 433Mhz.
+Arduino sketches for sensors on 433Mhz. These sketches use the NewRemoteSwitch as 433Mhz library.
