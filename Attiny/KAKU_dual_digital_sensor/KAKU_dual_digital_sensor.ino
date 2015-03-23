@@ -24,7 +24,7 @@ boolean sensor2Value = false;
 boolean state  = false;
 boolean state2  = false;
 
-NewRemoteTransmitter transmitter(ID, txPin, 260, 3); // Set-up transmitter
+NewRemoteTransmitter transmitter(ID, txPin, 260, 5); // Set-up transmitter
 
 ISR (PCINT0_vect)
 {
