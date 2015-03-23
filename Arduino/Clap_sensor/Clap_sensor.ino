@@ -8,19 +8,17 @@
 int txPin = 4;        // 433Mhz TX pin
 int ID = 123456;      // KAKU address
 int soundPin = 3;     // Mic sensor pin
-int LEDpin = 5;       // Test LED pin
 
 int claps = 0;
 long detectionSpanInitial = 0;
 long detectionSpan = 0;
 boolean lightState = false;
 
-NewRemoteTransmitter transmitter(ID, txPin, 260, 3); // Set-up transmitter
+NewRemoteTransmitter transmitter(ID, txPin, 260, 5); // Set-up transmitter
 
 void setup() {
   pinMode(soundPin, INPUT);
   digitalWrite (soundPin, HIGH);  // internal pull-up
-  pinMode(LEDpin, OUTPUT);
 }
 
 void loop() {
@@ -42,12 +40,10 @@ void loop() {
     if (claps == 2) {
       if (!lightState) {
           lightState = true;
-          digitalWrite(LEDpin, HIGH);
           transmitter.sendUnit(1, true);
         }
         else if (lightState) {
           lightState = false;
-          digitalWrite(LEDpin, LOW);
           transmitter.sendUnit(1, false);
         }
     }
