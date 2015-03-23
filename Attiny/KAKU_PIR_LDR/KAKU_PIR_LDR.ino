@@ -16,7 +16,7 @@
 #include <NewRemoteTransmitter.h>
 
 #define ID 123456 // KAKU address
-#define ldrSp 200 // Trigger value of the LDR
+#define ldrSp 600 // Trigger value of the LDR
 #define txPin 0   // 433Mhz TX pin
 #define ldrPin 3  // LDR sensor pin
 #define pirPin 4  // PIR sensor pin
