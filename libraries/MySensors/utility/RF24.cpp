@@ -52,7 +52,7 @@ void RF24::csn(bool mode)
 void RF24::ce(bool level)
 {
   //Allow for 3-pin use on ATTiny
-  if (ce_pin != csn_pin) digitalWrite(ce_pin,level);
+  if (ce_pin != csn_pin && ce_pin != 0) digitalWrite(ce_pin,level);
 }
 
 /****************************************************************************/
@@ -445,7 +445,7 @@ void RF24::printDetails(void)
 void RF24::begin(void)
 {
   // Initialize pins
-  if (ce_pin != csn_pin) pinMode(ce_pin,OUTPUT);
+  if (ce_pin != csn_pin && ce_pin != 0) pinMode(ce_pin,OUTPUT);
 
   #if defined(__arm__) && ! defined( CORE_TEENSY )
   	_SPI.begin(csn_pin);					// Using the extended SPI features of the DUE
@@ -567,7 +567,7 @@ void RF24::stopListening(void)
  
   #if defined (RF24_TINY)
   // for 3 pins solution TX mode is only left with additonal powerDown/powerUp cycle
-  if (ce_pin == csn_pin) {
+  if (ce_pin == csn_pin || ce_pin == 0) {
     powerDown();
 	powerUp();
   }

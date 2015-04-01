@@ -23,8 +23,20 @@
 
 #ifdef __cplusplus
 #include <Arduino.h>
+#if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
+	#define TINY
+#else
+	#include <SPI.h>
+	#include "utility/LowPower.h"
+#endif
 #include "utility/RF24.h"
 #include "utility/RF24_config.h"
+#endif
+
+#ifdef DEBUG
+#define debug(x,...) debugPrint(x, ##__VA_ARGS__)
+#else
+#define debug(x,...)
 #endif
 
 #define BAUD_RATE 115200

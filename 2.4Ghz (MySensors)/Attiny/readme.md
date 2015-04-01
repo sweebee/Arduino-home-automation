@@ -1,1 +1,1 @@
-These sketches are for MySensor nodes based on an Attiny85. You'll need [this (custom) MySensors library](https://github.com/sweebee/Arduino-home-automation/tree/master/libraries/MySensorsTiny).
+These sketches are for MySensor nodes based on an Attiny85. You'll need [this (custom) MySensors library](https://github.com/sweebee/Arduino-home-automation/tree/master/libraries/MySensors).
