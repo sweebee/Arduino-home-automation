@@ -2,143 +2,135 @@
 #include <SPI.h>
 #include <Adafruit_NeoPixel.h>
 
-#define PIN 4
+#define LED_PIN 4
 #define NODE_ID 5
 
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
- 
-int Rold = 0;
-int Gold = 0;
-int Bold = 0;
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-int RL = 0;
-int GL = 0;
-int BL = 0;
+int R;
+int G;
+int B;
+
+int Rold;
+int Gold;
+int Bold;
 
 MySensor gw;
 
 void setup() {
-   strip.begin();
-   strip.show();
-  
-   gw.begin(incomingMessage, NODE_ID, true);
-   gw.sendSketchInfo("Mood Light", "1.1");
-   gw.present(1, S_LIGHT);
-   gw.present(2, S_LIGHT);
-   gw.present(3, S_LIGHT);
-   gw.present(4, S_LIGHT);
-   
-   colorDirect(255, 0, 0); // Red
-   delay(200);
-   colorDirect(0, 255, 0); // Green
-   delay(200);
-   colorDirect(0, 0, 255); // Blue
-   delay(200);
-   colorFade(0, 0, 0, 5); // Off
+  strip.begin();
+  strip.show();
+
+  gw.begin(incomingMessage, NODE_ID, true);
+  gw.sendSketchInfo("Mood Light", "1.1");
+  gw.present(1, S_LIGHT);
+  gw.present(2, S_LIGHT);
+  gw.present(3, S_LIGHT);
+  gw.present(4, S_LIGHT);
+
+  // colorChange(RED, GREEN, BUE, FADE)
+  colorChange(255, 0, 0, true); // Red
+  delay(200);
+  colorChange(0, 255, 0, false); // Green
+  delay(200);
+  colorChange(0, 0, 255, false); // Bue
+  delay(200);
+  colorChange(0, 0, 0, true); // Off
 }
- 
+
 void loop() {
-    gw.process();
+  gw.process();
 }
 
 void incomingMessage(const MyMessage &message) {
-  if (message.type==V_LIGHT) {
-      
-      int ID = message.sensor;
-      int VAL = message.getBool();
-      
-      
-     if(ID == 1 && VAL == 0) {
-        colorFade(0, 0, 0, 5); // Off
-        RL = 0;
-        GL = 0;
-        BL = 0;
-     }
-     
-     if(ID == 1 && VAL == 1) {
-        colorFade(255, 0, 0, 5); // Red
-        RL = 255;
-        GL = 0;
-        BL = 0;
-     }
-     
-     if(ID == 2 && VAL == 0) {
-        colorFade(0, 255, 30, 5); // Green
-        RL = 0;
-        GL = 255;
-        BL = 30;
-     }
-   
-    if(ID == 2 && VAL == 1) {
-        colorFade(0, 150, 255, 5); // Blue
-        RL = 0;
-        GL = 150;
-        BL = 255;
-     }
-     if(ID == 3 && VAL == 0) {
-        colorFade(255, 147, 41, 5); // Warm white
-        RL = 255;
-        GL = 141;
-        BL = 41;
-     }
-     
-     
-     // NOTIFICATION
-     if(ID == 3 && VAL == 1) {
-       
-        colorFade(0, 0, 0, 2); // Off
-        colorFade(255, 0, 0, 2); // Red
-        colorFade(0, 0, 0, 2); // Off
-        colorFade(255, 0, 0, 2); // Red
-        colorFade(0, 0, 0, 2); // Off
-        colorFade(RL, GL, BL, 2); // Last state
+  if (message.type == V_LIGHT) {
 
-     }
-     
-      if(ID == 4 && VAL == 0) {
-        colorFade(255, 0, 115, 5); // Purple
-        RL = 255;
-        GL = 0;
-        BL = 255;
-     }
-     
-     if(ID == 4 && VAL == 1) {
-        colorFade(255, 197, 143, 5); // White
-        RL = 255;
-        GL = 197;
-        BL = 143;
-     }
-   } 
+    int ID = message.sensor;
+    int VAL = message.getBool();
+
+    if (ID == 1 && VAL == 0) { // Off
+      R = 0;
+      G = 0;
+      B = 0;
+      colorChange(R, G, B, true);
+    }
+
+    if (ID == 1 && VAL == 1) { // Red
+      R = 255;
+      G = 0;
+      B = 0;
+      colorChange(R, G, B, true);
+    }
+
+    if (ID == 2 && VAL == 0) { // Green
+      R = 0;
+      G = 255;
+      B = 30;
+      colorChange(R, G, B, true);
+    }
+
+    if (ID == 2 && VAL == 1) { // Bue
+      R = 0;
+      G = 150;
+      B = 255;
+      colorChange(R, G, B, true);
+    }
+
+    if (ID == 3 && VAL == 0) { // Warm white
+      R = 255;
+      G = 141;
+      B = 41;
+      colorChange(R, G, B, true);
+    }
+
+
+    // NOTIFICATION
+    if (ID == 3 && VAL == 1) {
+      colorChange(0, 0, 0, true); // Off
+      colorChange(255, 0, 0, true); // Red
+      colorChange(0, 0, 0, true); // Off
+      colorChange(255, 0, 0, true); // Red
+      colorChange(0, 0, 0, true); // Off
+      colorChange(R, G, B, true); // Last state
+    }
+
+    if (ID == 4 && VAL == 0) { // Purple
+      R = 255;
+      G = 0;
+      B = 255;
+      colorChange(R, G, B, 255);
+    }
+
+    if (ID == 4 && VAL == 1) { // White
+      R = 255;
+      G = 197;
+      B = 143;
+      colorChange(R, G, B, 255);
+    }
+  }
 }
 
-// FADE COLOR TO COLOR
-void colorFade(uint32_t R, uint32_t G, uint32_t B, uint32_t wait) {
-      strip.setBrightness(255);
-      int T = 255;
-      while(T != 0) {
-        if(R > Rold) {Rold++;}
-        if(R < Rold) {Rold--;}
-        if(G > Gold) {Gold++;}
-        if(G < Gold) {Gold--;}
-        if(B > Bold) {Bold++;}
-        if(B < Bold) {Bold--;}
-        T--;
-        for(int i=0;i<16;i++){
-          strip.setPixelColor(i, strip.Color(Rold,Gold,Bold));
-        }
-        strip.show();
-       delay(wait);
-      } 
- }
-
- // SWITCH DIRECT TO COLOR
-  void colorDirect(uint32_t R, uint32_t G, uint32_t B) {
-    strip.setBrightness(255);
+// CHANGE TO COLOR
+void colorChange(uint32_t R, uint32_t G, uint32_t B, uint32_t fade) {
+  if (fade == false) {
     Rold = R;
     Gold = G;
     Bold = B;
-   for(int i=0;i<16;i++){
-          strip.setPixelColor(i, strip.Color(R,G,B));
-        }
-        strip.show();
- }
+    for (int i = 0; i < 16; i++) {
+      strip.setPixelColor(i, strip.Color(R, G, B));
+    }
+    strip.show();
+  } else {
+    int t = 255;
+    for (int t = 0; t < 255; t++) {
+      if (R > Rold) { Rold++; } else { Rold--; }
+      if (G > Gold) { Gold++; } else { Gold--; }               
+      if (B > Bold) { Bold++; } else { Bold--; }
+      for (int i = 0; i < 16; i++) {
+        strip.setPixelColor(i, strip.Color(Rold, Gold, Bold));
+      }
+      strip.show();
+      delay(5);
+    }
+  }
+}
