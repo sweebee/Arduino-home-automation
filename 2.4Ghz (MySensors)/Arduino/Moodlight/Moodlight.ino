@@ -1,7 +1,10 @@
 #include <MySensor.h>
 #include <SPI.h>
 #include <Adafruit_NeoPixel.h>
+
 #define PIN 4
+#define NODE_ID 5
+
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(16, PIN, NEO_GRB + NEO_KHZ800);
  
 int Rold = 0;
@@ -16,22 +19,22 @@ MySensor gw;
 
 void setup() {
    strip.begin();
-   strip.show(); // Initialize all pixels to 'off'
+   strip.show();
   
-   gw.begin(incomingMessage, 5, true);
+   gw.begin(incomingMessage, NODE_ID, true);
    gw.sendSketchInfo("Mood Light", "1.1");
    gw.present(1, S_LIGHT);
    gw.present(2, S_LIGHT);
    gw.present(3, S_LIGHT);
    gw.present(4, S_LIGHT);
    
-   colorDirect(255, 0, 0); // Rood
+   colorDirect(255, 0, 0); // Red
    delay(200);
-   colorDirect(0, 255, 0); // Groen
+   colorDirect(0, 255, 0); // Green
    delay(200);
-   colorDirect(0, 0, 255); // Blauw
+   colorDirect(0, 0, 255); // Blue
    delay(200);
-   colorFade(0, 0, 0, 5); // Uit
+   colorFade(0, 0, 0, 5); // Off
 }
  
 void loop() {
@@ -45,78 +48,70 @@ void incomingMessage(const MyMessage &message) {
       int VAL = message.getBool();
       
       
-     
-      
      if(ID == 1 && VAL == 0) {
-        colorFade(0, 0, 0, 5); // Uit
+        colorFade(0, 0, 0, 5); // Off
         RL = 0;
         GL = 0;
         BL = 0;
      }
      
      if(ID == 1 && VAL == 1) {
-        colorFade(255, 0, 0, 5); // Rood
+        colorFade(255, 0, 0, 5); // Red
         RL = 255;
         GL = 0;
         BL = 0;
      }
      
      if(ID == 2 && VAL == 0) {
-        colorFade(0, 255, 30, 5); // Groen
+        colorFade(0, 255, 30, 5); // Green
         RL = 0;
         GL = 255;
         BL = 30;
      }
    
     if(ID == 2 && VAL == 1) {
-        colorFade(0, 150, 255, 5); // Blauw
+        colorFade(0, 150, 255, 5); // Blue
         RL = 0;
         GL = 150;
         BL = 255;
      }
      if(ID == 3 && VAL == 0) {
-        colorFade(255, 147, 41, 5); // Warm wit
+        colorFade(255, 147, 41, 5); // Warm white
         RL = 255;
         GL = 141;
         BL = 41;
      }
      
      
-     // MELDING
+     // NOTIFICATION
      if(ID == 3 && VAL == 1) {
        
-        colorFade(0, 0, 0, 2); // Uit
-        colorFade(255, 0, 0, 2); // Rood
-        colorFade(0, 0, 0, 2); // Uit
-        colorFade(255, 0, 0, 2); // Rood
-        colorFade(0, 0, 0, 2); // Uit
+        colorFade(0, 0, 0, 2); // Off
+        colorFade(255, 0, 0, 2); // Red
+        colorFade(0, 0, 0, 2); // Off
+        colorFade(255, 0, 0, 2); // Red
+        colorFade(0, 0, 0, 2); // Off
         colorFade(RL, GL, BL, 2); // Last state
 
      }
      
       if(ID == 4 && VAL == 0) {
-        colorFade(255, 0, 115, 5); // Paars
+        colorFade(255, 0, 115, 5); // Purple
         RL = 255;
         GL = 0;
         BL = 255;
      }
      
      if(ID == 4 && VAL == 1) {
-        colorFade(255, 197, 143, 5); // wit
+        colorFade(255, 197, 143, 5); // White
         RL = 255;
         GL = 197;
         BL = 143;
      }
-      
-      
-      
-     Serial.print("Incoming change for sensor:");
-     Serial.print(message.sensor);
-     Serial.print(", New status: ");
-     Serial.println(message.getBool());
    } 
 }
 
+// FADE COLOR TO COLOR
 void colorFade(uint32_t R, uint32_t G, uint32_t B, uint32_t wait) {
       strip.setBrightness(255);
       int T = 255;
@@ -129,28 +124,21 @@ void colorFade(uint32_t R, uint32_t G, uint32_t B, uint32_t wait) {
         if(B < Bold) {Bold--;}
         T--;
         for(int i=0;i<16;i++){
-          // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-          strip.setPixelColor(i, strip.Color(Rold,Gold,Bold)); // Moderately bright green color.
-          
+          strip.setPixelColor(i, strip.Color(Rold,Gold,Bold));
         }
         strip.show();
        delay(wait);
       } 
  }
 
- 
-  void colorDirect(uint32_t RO, uint32_t GR, uint32_t BL) {
+ // SWITCH DIRECT TO COLOR
+  void colorDirect(uint32_t R, uint32_t G, uint32_t B) {
     strip.setBrightness(255);
-    Rold = RO;
-    Gold = GR;
-    Bold = BL;
+    Rold = R;
+    Gold = G;
+    Bold = B;
    for(int i=0;i<16;i++){
-          // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-          strip.setPixelColor(i, strip.Color(RO,GR,BL)); // Moderately bright green color.
-          
+          strip.setPixelColor(i, strip.Color(R,G,B));
         }
         strip.show();
  }
- 
-
-
