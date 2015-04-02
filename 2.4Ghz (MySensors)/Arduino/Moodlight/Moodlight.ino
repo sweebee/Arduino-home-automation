@@ -29,12 +29,10 @@ void setup() {
   gw.present(4, S_LIGHT);
 
   // colorChange(RED, GREEN, BUE, FADE)
-  colorChange(255, 0, 0, true); // Red
-  delay(200);
-  colorChange(0, 255, 0, false); // Green
-  delay(200);
-  colorChange(0, 0, 255, false); // Bue
-  delay(200);
+  colorChange(255, 0, 255, true); // Purple
+  colorChange(0, 255, 30, true); // Green
+  colorChange(0, 15, 255, true); // Bue
+  colorChange(255, 141, 41, true); // Bue
   colorChange(0, 0, 0, true); // Off
 }
 
@@ -121,7 +119,6 @@ void colorChange(uint32_t R, uint32_t G, uint32_t B, uint32_t fade) {
     }
     strip.show();
   } else {
-    int t = 255;
     for (int t = 0; t < 255; t++) {
       if (R > Rold) { Rold++; } else { Rold--; }
       if (G > Gold) { Gold++; } else { Gold--; }               
