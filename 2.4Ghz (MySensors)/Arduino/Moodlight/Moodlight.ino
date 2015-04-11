@@ -93,14 +93,14 @@ void incomingMessage(const MyMessage &message) {
       R = 255;
       G = 0;
       B = 255;
-      colorChange(R, G, B, 255);
+      colorChange(R, G, B, 255, true);
     }
 
     if (ID == 4 && VAL == 1) { // White
       R = 255;
       G = 197;
       B = 143;
-      colorChange(R, G, B, 255);
+      colorChange(R, G, B, 255, true);
     }
   }
 }
