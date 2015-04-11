@@ -30,9 +30,6 @@ void setup() {
 
   // colorChange(RED, GREEN, BUE, FADE)
   colorChange(255, 0, 255, true); // Purple
-  colorChange(0, 255, 30, true); // Green
-  colorChange(0, 15, 255, true); // Bue
-  colorChange(255, 141, 41, true); // Bue
   colorChange(0, 0, 0, true); // Off
 }
 
@@ -96,33 +93,35 @@ void incomingMessage(const MyMessage &message) {
       R = 255;
       G = 0;
       B = 255;
-      colorChange(R, G, B, true);
+      colorChange(R, G, B, 255);
     }
 
     if (ID == 4 && VAL == 1) { // White
       R = 255;
       G = 197;
       B = 143;
-      colorChange(R, G, B, true);
+      colorChange(R, G, B, 255);
     }
   }
 }
 
 // CHANGE TO COLOR
 void colorChange(uint32_t R, uint32_t G, uint32_t B, uint32_t fade) {
-  if (fade == false) {
+  if(fade == false) {
     Rold = R;
-    Gold = G;
     Bold = B;
-    for (int i = 0; i < 16; i++) {
-      strip.setPixelColor(i, strip.Color(R, G, B));
-    }
-    strip.show();
+    Gold = G;
+  for (int i = 0; i < 16; i++) {
+        strip.setPixelColor(i, strip.Color(Rold, Gold, Bold));
+      }
   } else {
-    for (int t = 0; t < 255; t++) {
-      if (R > Rold) { Rold++; } else { Rold--; }
-      if (G > Gold) { Gold++; } else { Gold--; }               
-      if (B > Bold) { Bold++; } else { Bold--; }
+    for(int t = 0; t < 256; t++) {
+      if (R > Rold) { Rold++; }
+      if (R < Rold) { Rold--; }
+      if (G > Gold) { Gold++; }
+      if (G < Gold) { Gold--; }      
+      if (B > Bold) { Bold++; }
+      if (B < Bold) { Bold--; }  
       for (int i = 0; i < 16; i++) {
         strip.setPixelColor(i, strip.Color(Rold, Gold, Bold));
       }
