@@ -8,6 +8,7 @@ Add this to the setup:
 
 int MIN_V = 2400; // empty voltage (0%)
 int MAX_V = 3200; // full voltage (100%)
+int oldBatteryPcnt;
 ```
 
 Add this to the loop:
@@ -16,7 +17,6 @@ Add this to the loop:
 // Measure battery
   float batteryV = readVcc();
   int batteryPcnt = (((batteryV - MIN_V) / (MAX_V - MIN_V)) * 100 );
-  int oldBatteryPcnt;
   if (batteryPcnt > 100) {
     batteryPcnt = 100;
   }
