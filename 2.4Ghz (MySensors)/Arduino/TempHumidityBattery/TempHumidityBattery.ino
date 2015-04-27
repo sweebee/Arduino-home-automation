@@ -13,6 +13,12 @@
 
     unsigned long SLEEP_TIME = 60000; // Sleep time between reads
 
+    // If you running a standard arduino pro mini 3.3V you have to set MIN_V to 2700
+    // Its recommended to disable the BOD so you can go lower.
+    // By default the clockspeed is 8 Mhz, that means you can go to MIN_V 2400
+    // With a Custom bootloader you can set it to 1 Mhz and then you can set MIN_V to 1800
+    // If your using a NRF24 you should set it to 2000 to be safe.
+
     int MIN_V = 2400; // empty voltage (0%)
     int MAX_V = 3200; // full voltage (100%)
 
