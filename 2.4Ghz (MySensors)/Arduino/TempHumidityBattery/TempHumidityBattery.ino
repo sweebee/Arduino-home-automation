@@ -9,6 +9,7 @@
     #define CHILD_ID_HUM 0      // ID of humidity
     #define CHILD_ID_TEMP 1     // ID of temperature
     #define SENSOR_PIN 3        // Pin connected to the sensor
+    #define SENSOR_POWER 4      // Power pin of sensor, only HIGH when measuring to reduce power
 
     unsigned long SLEEP_TIME = 60000; // Sleep time between reads
 
@@ -29,6 +30,7 @@ MyMessage msgTemp(CHILD_ID_TEMP, V_TEMP);
 
 void setup()  
 { 
+  pinMode(SENSOR_POWER, OUTPUT);
   node.begin(NULL,NODE_ID,false);
   dht.setup(SENSOR_PIN); 
 
@@ -58,6 +60,8 @@ void loop()
   }
   
   // Do sensor things
+
+  digitalWrite(SENSOR_POWER, HIGH); // Power up the sensor
   delay(dht.getMinimumSamplingPeriod());
 
   float temperature = dht.getTemperature();
@@ -82,6 +86,6 @@ void loop()
       Serial.print("H: ");
       Serial.println(humidity);
   }
-
+  digitalWrite(ledPin, LOW); // Power down the sensor
   node.sleep(SLEEP_TIME); //sleep a bit
 }
