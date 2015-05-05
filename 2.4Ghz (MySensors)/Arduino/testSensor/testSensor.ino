@@ -21,8 +21,8 @@ void loop()
 {
      gw.send(msg.set(OPEN)); 
   
-     delay(500); // Wait 10 seconds
+     delay(10000); // Wait 10 seconds
      gw.send(msg.set(CLOSE));
 
-     delay(500); // Wait 10 seconds
+     delay(10000); // Wait 10 seconds
 }
