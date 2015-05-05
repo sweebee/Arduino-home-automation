@@ -52,6 +52,7 @@ int lastLightLevel;
 void setup() {
   
   node.begin(NULL, NODE_ID, false);
+  pinMode(PIR_PIN, INPUT);
 
   // Register all sensors to gateway
   node.present(HUM_ID, S_HUM);
