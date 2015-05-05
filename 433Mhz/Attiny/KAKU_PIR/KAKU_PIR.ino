@@ -14,12 +14,12 @@
 #include <avr/power.h>
 #include <NewRemoteTransmitter.h>
 
-#define ID 123456    // KAKU address
+#define ID 27951    // KAKU address
 #define txPin 0      // 433Mhz TX pin
 #define sensorPin 4  // PIR sensor pin
 
 boolean input = false;
-boolean state = false;
+boolean sendInput;
 
 NewRemoteTransmitter transmitter(ID, txPin, 260, 5); // Set-up transmitter
 
@@ -42,19 +42,9 @@ void setup () {
 
 void loop () {
   
-  input = digitalRead(sensorPin);   // read the input pin
-  
-  if(input == true && state == false) {
-       transmitter.sendUnit(1, true);
-       state = true;      
-  }
 
-  if(input == false && state == true) {
-       transmitter.sendUnit(1, false);
-       state = false;
-  }
-  
-  delay (10);
+       transmitter.sendUnit(1,true);
+
   goToSleep ();
   
 }
