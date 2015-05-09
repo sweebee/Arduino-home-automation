@@ -61,7 +61,8 @@ void incomingMessage(const MyMessage &message) {
     
     Serial.print("Sensor: ");
     Serial.println(ID);
-    if ( ID == 1) { // Off
+    
+    if ( ID == 1) { // Dimmer rood
       R = requestedLevel;
       G = Gold;
       B = Bold;
@@ -69,7 +70,7 @@ void incomingMessage(const MyMessage &message) {
       oldRequestedLevel = requestedLevel;
     }
     
-    if ( ID == 2) { // Off
+    if ( ID == 2) { // Dimmer groen
       R = Rold;
       G = requestedLevel;
       B = Bold;
@@ -77,7 +78,7 @@ void incomingMessage(const MyMessage &message) {
       oldRequestedLevel = requestedLevel;
     }
     
-    if ( ID == 3) { // Off
+    if ( ID == 3) { // Dimmer blauw
       R = Rold;
       G = Gold;
       B = requestedLevel;
