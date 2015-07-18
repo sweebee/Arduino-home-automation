@@ -1,4 +1,4 @@
-A simple button switch sensor. You'll need [this (custom) MySensors library](https://github.com/sweebee/Arduino-home-automation/tree/master/libraries/MySensorsTiny).
+A simple button switch sensor. You'll need [this (custom) MySensors library](https://github.com/sweebee/Arduino-home-automation/tree/master/libraries/MySensors).
 
 #Wiring:
 ```
