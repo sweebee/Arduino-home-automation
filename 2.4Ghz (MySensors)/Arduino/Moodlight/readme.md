@@ -19,7 +19,7 @@
 {
       "id": "moodlight-red",
       "name": "Moodlight red",
-      "rule": "if mood-warm is pressed then send Ir nodeid:\"50\" sensorid:\"0\" cmdcode:\"ff0000\"",
+      "rule": "if mood-red is pressed then send Ir nodeid:\"50\" sensorid:\"0\" cmdcode:\"ff0000\"",
       "active": true,
       "logging": false
     },
