@@ -5,16 +5,15 @@
 
 //********** CONFIG **********************************
 
-    const int NODE_ID = 2;            // ID of node
-    const int CHILD_ID_HUM = 0;       // ID of humidity
-    const int CHILD_ID_TEMP = 1;      // ID of temperature
-    const int SENSOR_PIN = 3;         // Pin connected to the sensor
+    #define NODE_ID 210             // ID of node
+    #define CHILD_ID_HUM 0          // ID of humidity
+    #define CHILD_ID_TEMP 1         // ID of temperature
+    #define SENSOR_PIN 3            // Pin connected to the sensor
 
-    unsigned long SLEEP_TIME = 60000; // Sleep time between reads
+    #define SLEEP_TIME 60000        // Sleep time between reads
     
-    boolean BATTERY_SENSOR = true;    // Set to false to disable the battery sensor
-    const int MIN_V = 2400;           // empty voltage (0%)
-    const int MAX_V = 3200;           // full voltage (100%)
+    #define MIN_V 2000              // empty voltage (0%)
+    #define MAX_V 3200              // full voltage (100%)
     
 
 //****************************************************
@@ -45,13 +44,11 @@ void loop()
 {  
   
   // Measure battery
-  if(BATTERY_SENSOR == true) {
     int batteryPcnt = min(map(readVcc(), MIN_V, MAX_V, 0, 100), 100); // Convert voltage to percentage
     
     if (batteryPcnt != oldBatteryPcnt) { // If battery percentage has changed
       node.sendBatteryLevel(batteryPcnt); // Send battery percentage to gateway
       oldBatteryPcnt = batteryPcnt;
-    }
   }
   
   // Do sensor things

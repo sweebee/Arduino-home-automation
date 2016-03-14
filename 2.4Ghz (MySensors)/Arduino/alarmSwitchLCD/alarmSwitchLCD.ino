@@ -22,7 +22,7 @@ byte colPins[COLS] = {4, 3, 2}; //connect to the column pinouts of the keypad
 Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 
-Password password = Password( "1234" ); // Password
+Password password = Password( "1463" ); // Password
 
 
 #define NODE_ID 53

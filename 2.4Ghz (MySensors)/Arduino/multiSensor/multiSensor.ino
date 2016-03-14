@@ -25,9 +25,10 @@
     #define PIR_PIN 4       // Pin of PIR
     
     #define LIGHT_ID 3      // ID of LDR
-    #define LIGHT_PIN A0     // Pin of LDR
+    #define LIGHT_PIN A0    // Pin of LDR
+    #define LIGHT_PWR 5     // Power (Vcc) pin of LDR
     
-    unsigned long SLEEP_TIME = 120000; // Sleep time between reads
+    unsigned long SLEEP_TIME = 300000; // Sleep time between reads
     
     boolean BATTERY_SENSOR = true; // Set to false to disable the battery sensor
     int MIN_V = 2400; // empty voltage (0%)
@@ -50,9 +51,9 @@ int lastPIR = 2;
 int lastLightLevel;
 
 void setup() {
-  
   node.begin(NULL, NODE_ID, false);
   pinMode(PIR_PIN, INPUT);
+  pinMode(LIGHT_PWR, OUTPUT);
 
   // Register all sensors to gateway
   node.present(HUM_ID, S_HUM);
@@ -114,15 +115,17 @@ void loop() {
   
 // *** LIGHT SENSOR  *************************************************
 
-
-  float light = analogRead(LIGHT_PIN);
-  int lightLevel = (light / 1023) * 100;
+  digitalWrite(LIGHT_PWR, HIGH); // Power up the LDR
+  float light = analogRead(LIGHT_PIN); // Read LDR
+  digitalWrite(LIGHT_PWR, LOW); // Power down the LDR
+  if(light > 500) {light = 500;}
+  int lightLevel = 100 - (light / 5);
   if (lightLevel != lastLightLevel) {
     lastLightLevel = lightLevel;
     node.send(LIGHTmsg.set(lightLevel));
   }
   
-// *** PRINT SENSOR VALUES
+// *** PRINT SENSOR VALUES *******************************************
 
   Serial.println();
   
