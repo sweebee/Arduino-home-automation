@@ -19,10 +19,12 @@
     
     #define HUM_ID 0        // ID of HUM
     #define TEMP_ID 1       // ID of TEMP
-    #define DHT_PIN 3       // Pin of DHT
+    // 27-4-2016 swap the pin of the pir and dht
+    #define DHT_PIN 4       // Pin of DHT
     
     #define PIR_ID 2        // ID of PIR
-    #define PIR_PIN 4       // Pin of PIR
+    // 27-4-2016 Better to keep the pir on a official interupt pin otherwise it might not wake up the pro mini
+    #define PIR_PIN 3       // Pin of PIR 
     
     #define LIGHT_ID 3      // ID of LDR
     #define LIGHT_PIN A0    // Pin of LDR
